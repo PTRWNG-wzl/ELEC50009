@@ -1,0 +1,22 @@
+# # File gsaved with Nlview version 6.3.8  2013-12-19 bk=1.2992 VDI=34 GEI=35
+# 
+preplace inst lab3.jtag_uart -pg 1 -lvl 3 -y 150
+preplace inst lab3.clk -pg 1 -lvl 1 -y 450
+preplace inst lab3.cpu -pg 1 -lvl 2 -y 430
+preplace inst lab3.timer -pg 1 -lvl 3 -y 250
+preplace inst lab3 -pg 1 -lvl 1 -y 40 -regy -20
+preplace inst lab3.cpu.cpu -pg 1
+preplace inst lab3.cpu.reset_bridge -pg 1
+preplace inst lab3.accelerometer_spi -pg 1 -lvl 3 -y 30
+preplace inst lab3.onchip_memory -pg 1 -lvl 3 -y 450
+preplace inst lab3.led -pg 1 -lvl 3 -y 350
+preplace inst lab3.cpu.clock_bridge -pg 1
+preplace netloc EXPORT<net_container>lab3</net_container>(SLAVE)lab3.clk,(SLAVE)clk.clk_in) 1 0 1 NJ
+preplace netloc EXPORT<net_container>lab3</net_container>(SLAVE)clk.clk_in_reset,(SLAVE)lab3.reset) 1 0 1 NJ
+preplace netloc EXPORT<net_container>lab3</net_container>(SLAVE)lab3.led_external_connection,(SLAVE)led.external_connection) 1 0 3 NJ 350 NJ 350 NJ
+preplace netloc FAN_OUT<net_container>lab3</net_container>(MASTER)cpu.irq,(SLAVE)timer.irq,(SLAVE)jtag_uart.irq,(SLAVE)accelerometer_spi.interrupt) 1 2 1 760
+preplace netloc FAN_OUT<net_container>lab3</net_container>(SLAVE)timer.clk,(SLAVE)led.clk,(SLAVE)jtag_uart.clk,(MASTER)clk.clk,(SLAVE)accelerometer_spi.clk,(SLAVE)onchip_memory.clk1,(SLAVE)cpu.clk) 1 1 2 360 370 800
+preplace netloc FAN_OUT<net_container>lab3</net_container>(SLAVE)jtag_uart.reset,(SLAVE)timer.reset,(MASTER)clk.clk_reset,(SLAVE)accelerometer_spi.reset,(SLAVE)led.reset,(SLAVE)cpu.reset,(SLAVE)onchip_memory.reset1) 1 1 2 360 570 820
+preplace netloc INTERCONNECT<net_container>lab3</net_container>(MASTER)cpu.instruction_master,(SLAVE)led.s1,(SLAVE)cpu.debug_mem_slave,(SLAVE)timer.s1,(SLAVE)accelerometer_spi.avalon_accelerometer_spi_mode_slave,(MASTER)cpu.data_master,(SLAVE)jtag_uart.avalon_jtag_slave,(SLAVE)onchip_memory.s1) 1 1 2 380 390 740
+levelinfo -pg 1 0 150 1120
+levelinfo -hier lab3 160 190 500 860 1110
